@@ -1,0 +1,17 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.box {
+  border: 1px solid black;
+  width: 25%;
+  padding: 20px;
+  margin-top: 50px;
+  align-self: center;
+}
+
+.provider {
+  cursor: pointer;
+}

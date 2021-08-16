@@ -1,0 +1,11 @@
+.cardsLayout {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.cardContainer {
+  padding: 8px;
+  width: 300px;
+  cursor: pointer;
+}

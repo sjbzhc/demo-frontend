@@ -1,0 +1,34 @@
+.container {
+  padding: 16px;
+}
+
+.controlButton {
+  cursor: pointer;
+}
+
+.titleCotainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.title {
+  font-size: 20px;
+  font-weight: 500;
+  padding-bottom: 32px;
+}
+
+@media (min-width: 768px) {
+  .courseLayout {
+    display: flex;
+    flex-direction: row;
+  }
+
+  .container {
+    flex: 7;
+  }
+
+  .options {
+    flex: 3;
+  }
+}

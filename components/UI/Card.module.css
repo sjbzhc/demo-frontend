@@ -1,0 +1,13 @@
+.card {
+  background: white;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
+  border-radius: 2px;
+  width: 100%;
+  padding: 16px;
+}
+
+.title {
+  font-weight: 700;
+  font-size: 20px;
+  padding-bottom: 16px;
+}

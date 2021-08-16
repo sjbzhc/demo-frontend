@@ -1,0 +1,13 @@
+{
+  "course.delete.title": "Please confirm the course deletion",
+  "course.delete.message": "By deleting the course, your students will lose all their progress.",
+  "course.exmatriculate.title": "Please confirm your exmatriculation",
+  "course.exmatriculate.message": "By clicking on Confirm you will terminate your participation in the course. You can enroll back an any time.",
+  "course.menu.option.exmatriculate": "Exmatriculate",
+  "course.menu.option.delete": "Delete course",
+
+  "main.title": "Product title",
+  "profile.title": "Profile",
+  "login.title": "Login"
+
+}
