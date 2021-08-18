@@ -1,0 +1,22 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.messageBox {
+  margin-top: 10rem;
+  align-self: center;
+  text-align: center;
+}
+
+.title {
+  font-weight: 500;
+  font-size: 2rem;
+  line-height: 3rem;
+}
+
+.message {
+  font-weight: 200;
+  font-size: 1.5rem;
+}

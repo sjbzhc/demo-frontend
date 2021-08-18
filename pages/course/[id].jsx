@@ -3,11 +3,11 @@ import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import { FormattedMessage, useIntl } from 'react-intl';
-import { useQuery } from '@apollo/client';
+import { useMutation, useQuery } from '@apollo/client';
 import { useRouter } from 'next/dist/client/router';
 import { useModal } from '../../components/providers/ModalProvider';
 import classes from './course.module.css';
-import { COURSE_BY_ID } from '../../graphql/queries/queries';
+import { COURSE_BY_ID, ENROLL_TO_COURSE, EXMATRICUALTE_FROM_COURSE } from '../../graphql/queries/queries';
 
 const Course = () => {
   const intl = useIntl();
@@ -26,6 +26,9 @@ const Course = () => {
   };
 
   const { loading, data } = useQuery(COURSE_BY_ID, { variables: { courseId: id } });
+
+  const [exmatriculate, { loading: loadingExmatriculate, data: dataExmatriculate }] = useMutation(EXMATRICUALTE_FROM_COURSE);
+  const [enroll, { loading: loadingEnroll, data: dataEnroll }] = useMutation(ENROLL_TO_COURSE);
 
   if (loading) {
     return (<div>Loading...</div>);
@@ -50,12 +53,13 @@ const Course = () => {
               open={Boolean(anchorEl)}
               onClose={handleClose}
             >
-              <MenuItem onClick={() => {
+              {course.isEnrolled && <MenuItem onClick={() => {
                 setModalConfig(
                   {
                     title: intl.formatMessage({ id: 'course.exmatriculate.title' }),
                     message: intl.formatMessage({ id: 'course.exmatriculate.message' }),
                     onCancel: () => setDisplayModal(false),
+                    onConfirm: () => exmatriculate( { variables: { courseId: id } }),
                   },
                 );
                 setDisplayModal(true);
@@ -64,6 +68,23 @@ const Course = () => {
               >
                 <FormattedMessage id="course.menu.option.exmatriculate" />
               </MenuItem>
+              }
+              {!course.isEnrolled && <MenuItem onClick={() => {
+                setModalConfig(
+                  {
+                    title: intl.formatMessage({ id: 'course.enroll.title' }, { courseName: course.name }),
+                    message: intl.formatMessage({ id: 'course.enroll.message'}),
+                    onCancel: () => setDisplayModal(false),
+                    onConfirm: () => enroll( { variables: { courseId: id } }),
+                  },
+                );
+                setDisplayModal(true);
+                handleClose();
+              }}
+              >
+                <FormattedMessage id="course.menu.option.enroll" />
+              </MenuItem>
+              }
             </Menu>
           </div>
         </div>

@@ -1,10 +1,20 @@
 {
+  "courses.title": "Courses",
   "course.delete.title": "Please confirm the course deletion",
   "course.delete.message": "By deleting the course, your students will lose all their progress.",
   "course.exmatriculate.title": "Please confirm your exmatriculation",
   "course.exmatriculate.message": "By clicking on Confirm you will terminate your participation in the course. You can enroll back an any time.",
-  "course.menu.option.exmatriculate": "Exmatriculate",
+  
   "course.menu.option.delete": "Delete course",
+  "course.menu.option.enroll": "Enroll",
+  "course.menu.option.exmatriculate": "Exmatriculate",
+
+
+  "courses.no.courses.message": "It looks like you have no courses",
+  "courses.no.courses.message.link": "Find something new here: ",
+
+  "course.enroll.title": "Enroll in {courseName}",
+  "course.enroll.message": "Message to confirm enrolling in course",
 
   "main.title": "Product title",
   "profile.title": "Profile",

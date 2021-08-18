@@ -61,3 +61,8 @@ body {
 .error-text {
   color: #b40e0e;
 }
+
+a {
+  text-decoration: none;
+  color: black;
+}

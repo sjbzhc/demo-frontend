@@ -17,6 +17,35 @@ export const COURSE_BY_ID = gql`
     course(courseId: $courseId) {
       name
       description
+      isEnrolled
     }
   }
   `;
+
+export const MY_COURSES = gql`
+  query {
+    myCourses {
+        id
+        name
+        creator {
+          name
+        }
+      }
+    }
+`;
+
+export const EXMATRICUALTE_FROM_COURSE = gql`
+  mutation Exmatriculate($courseId: String!) {
+    removeParticipantFromCourse(courseId: $courseId) {
+      id
+    }
+}
+`;
+
+export const ENROLL_TO_COURSE = gql`
+  mutation Enroll($courseId: String!) {
+    addParticipantToCourse(courseId: $courseId) {
+      id
+    }
+}
+`;

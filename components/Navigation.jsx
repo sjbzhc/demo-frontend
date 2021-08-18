@@ -1,11 +1,12 @@
 import { useSession } from 'next-auth/client';
 import Link from 'next/link';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
 
 import classes from './navigation.module.css';
 
 function Navigation() {
   const [session, loading] = useSession();
+  const intl = useIntl();
 
   const isLoggedIn = !loading && session;
 
@@ -16,12 +17,12 @@ function Navigation() {
         <ul>
           {isLoggedIn && (
           <li>
-            <Link href="/profile"><FormattedMessage id="profile.title" /></Link>
+            <Link href="/profile">{intl.formatMessage({ id: 'profile.title' })}</Link>
           </li>
           )}
           {!isLoggedIn && (
           <li>
-            <Link href="/login"><FormattedMessage id="login.title" /></Link>
+            <Link href="/login">{intl.formatMessage({ id: 'login.title' })}</Link>
           </li>
           )}
         </ul>
