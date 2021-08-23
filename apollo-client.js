@@ -2,7 +2,7 @@ import {
   ApolloClient, createHttpLink, InMemoryCache,
 } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
-import { getSession } from 'next-auth/client';
+import { getSession, signIn } from 'next-auth/client';
 import { useMemo } from 'react';
 
 let apolloClient;
@@ -14,6 +14,10 @@ const httpLink = createHttpLink({
 function createApolloClient() {
   const authLink = setContext(async (_, { headers }) => {
     const session = await getSession();
+
+    if (session === null) {
+      signIn();
+    }
 
     return {
       headers: {

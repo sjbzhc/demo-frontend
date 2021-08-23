@@ -53,13 +53,14 @@ const Course = () => {
               open={Boolean(anchorEl)}
               onClose={handleClose}
             >
-              {course.isEnrolled && <MenuItem onClick={() => {
+              {course.isEnrolled && (
+              <MenuItem onClick={() => {
                 setModalConfig(
                   {
                     title: intl.formatMessage({ id: 'course.exmatriculate.title' }),
                     message: intl.formatMessage({ id: 'course.exmatriculate.message' }),
                     onCancel: () => setDisplayModal(false),
-                    onConfirm: () => exmatriculate( { variables: { courseId: id } }),
+                    onConfirm: () => exmatriculate({ variables: { courseId: id } }),
                   },
                 );
                 setDisplayModal(true);
@@ -68,14 +69,15 @@ const Course = () => {
               >
                 <FormattedMessage id="course.menu.option.exmatriculate" />
               </MenuItem>
-              }
-              {!course.isEnrolled && <MenuItem onClick={() => {
+              )}
+              {!course.isEnrolled && (
+              <MenuItem onClick={() => {
                 setModalConfig(
                   {
                     title: intl.formatMessage({ id: 'course.enroll.title' }, { courseName: course.name }),
-                    message: intl.formatMessage({ id: 'course.enroll.message'}),
+                    message: intl.formatMessage({ id: 'course.enroll.message' }),
                     onCancel: () => setDisplayModal(false),
-                    onConfirm: () => enroll( { variables: { courseId: id } }),
+                    onConfirm: () => enroll({ variables: { courseId: id } }),
                   },
                 );
                 setDisplayModal(true);
@@ -84,7 +86,7 @@ const Course = () => {
               >
                 <FormattedMessage id="course.menu.option.enroll" />
               </MenuItem>
-              }
+              )}
             </Menu>
           </div>
         </div>
