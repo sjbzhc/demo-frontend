@@ -2,10 +2,6 @@
   padding: 16px;
 }
 
-.controlButton {
-  cursor: pointer;
-}
-
 .titleCotainer {
   display: flex;
   flex-direction: row;
@@ -30,5 +26,12 @@
 
   .options {
     flex: 3;
+    padding-bottom: 16px;
+  }
+
+  .optionsTitle {
+    font-size: 18px;
+    font-weight: 700;
+    padding: 8px;
   }
 }

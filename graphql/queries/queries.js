@@ -18,6 +18,11 @@ export const COURSE_BY_ID = gql`
       name
       description
       isEnrolled
+      units {
+        name
+        content
+        videoId
+      }
     }
   }
   `;

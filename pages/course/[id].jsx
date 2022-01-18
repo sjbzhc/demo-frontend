@@ -1,34 +1,19 @@
+import { FormattedMessage } from 'react-intl';
+import { useQuery } from '@apollo/client';
 import { useState } from 'react';
-import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
-import Menu from '@material-ui/core/Menu';
-import MenuItem from '@material-ui/core/MenuItem';
-import { FormattedMessage, useIntl } from 'react-intl';
-import { useMutation, useQuery } from '@apollo/client';
 import { useRouter } from 'next/dist/client/router';
-import { useModal } from '../../components/providers/ModalProvider';
 import classes from './course.module.css';
-import { COURSE_BY_ID, ENROLL_TO_COURSE, EXMATRICUALTE_FROM_COURSE } from '../../graphql/queries/queries';
+import { COURSE_BY_ID } from '../../graphql/queries/queries';
+import UnitButton from '../../components/course/unit/UnitButton';
+import HorizontalMenu from '../../components/course/horizontalMenu/HorizontalMenu';
+import Video from '../../components/UI/Video';
 
 const Course = () => {
-  const intl = useIntl();
-  const modalCtx = useModal();
-  const [anchorEl, setAnchorEl] = useState(null);
   const router = useRouter();
+  const [videoId, setVideoId] = useState('');
   const { id } = router.query;
-  const { setDisplayModal, setModalConfig } = modalCtx;
-
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
 
   const { loading, data } = useQuery(COURSE_BY_ID, { variables: { courseId: id } });
-
-  const [exmatriculate, { loading: loadingExmatriculate, data: dataExmatriculate }] = useMutation(EXMATRICUALTE_FROM_COURSE);
-  const [enroll, { loading: loadingEnroll, data: dataEnroll }] = useMutation(ENROLL_TO_COURSE);
 
   if (loading) {
     return (<div>Loading...</div>);
@@ -41,58 +26,16 @@ const Course = () => {
       <div className={classes.container}>
         <div className={classes.titleCotainer}>
           <div className={classes.title}>{course.name}</div>
-          <div>
-            <MoreHorizIcon
-              className={classes.controlButton}
-              onClick={handleClick}
-            />
-            <Menu
-              id="course-menu"
-              anchorEl={anchorEl}
-              keepMounted
-              open={Boolean(anchorEl)}
-              onClose={handleClose}
-            >
-              {course.isEnrolled && (
-              <MenuItem onClick={() => {
-                setModalConfig(
-                  {
-                    title: intl.formatMessage({ id: 'course.exmatriculate.title' }),
-                    message: intl.formatMessage({ id: 'course.exmatriculate.message' }),
-                    onCancel: () => setDisplayModal(false),
-                    onConfirm: () => exmatriculate({ variables: { courseId: id } }),
-                  },
-                );
-                setDisplayModal(true);
-                handleClose();
-              }}
-              >
-                <FormattedMessage id="course.menu.option.exmatriculate" />
-              </MenuItem>
-              )}
-              {!course.isEnrolled && (
-              <MenuItem onClick={() => {
-                setModalConfig(
-                  {
-                    title: intl.formatMessage({ id: 'course.enroll.title' }, { courseName: course.name }),
-                    message: intl.formatMessage({ id: 'course.enroll.message' }),
-                    onCancel: () => setDisplayModal(false),
-                    onConfirm: () => enroll({ variables: { courseId: id } }),
-                  },
-                );
-                setDisplayModal(true);
-                handleClose();
-              }}
-              >
-                <FormattedMessage id="course.menu.option.enroll" />
-              </MenuItem>
-              )}
-            </Menu>
-          </div>
+          <HorizontalMenu course={course} id={id} />
         </div>
-        <div>{course.description}</div>
+        {videoId === '' ? <div>{course.description}</div> : <Video id={videoId} />}
       </div>
-      <div className={classes.options}>Course progress</div>
+      <div className={classes.options}>
+        <div className={classes.optionsTitle}><FormattedMessage id="course.menu.options.title" /></div>
+        {course.units && course.units.map((unit) => (
+          <UnitButton key={unit.name} unit={unit} setVideoId={setVideoId} />
+        ))}
+      </div>
     </div>
   );
 };
