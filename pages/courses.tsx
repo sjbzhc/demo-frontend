@@ -10,7 +10,7 @@ const Profile = ({ user }) => {
   const { loading, data } = useQuery(ALL_COURSES_QUERY);
 
   if (!user) {
-    return (<div>Loading...</div>);
+    return <div>Loading...</div>;
   }
 
   return (

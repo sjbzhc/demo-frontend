@@ -1,10 +1,10 @@
-import { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext, useState } from 'react';
 import { childrenShape } from '../../shapes/shapes';
 import Modal from '../UI/Modal';
 
 const ModalContext = createContext();
 
-const ModalProvider = ({ children }) => {
+const ModalProvider = ({ children }): React.ReactElement => {
   const [displayModal, setDisplayModal] = useState(false);
   const [modalConfig, setModalConfig] = useState({});
 
